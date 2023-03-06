@@ -3,15 +3,22 @@ package org.example;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class AppTestRunner {
+import java.io.ByteArrayOutputStream;
+import java.util.Scanner;
 
-    @Test
-    @DisplayName("")
-    public static String run(String cmd){
+public class AppTestRunner {
+    public static String run(String cmd) {
+        cmd.stripIndent().trim();
         cmd += "\n종료";
 
+        Scanner sc = TestUtil.genScanner(cmd);
+        ByteArrayOutputStream output = TestUtil.setOutToByteArray();
+
+        new App(sc).run();
+
+        String rs = output.toString();
+        TestUtil.clearSetOutToByteArray(output);
+
+        return rs;
     }
-
-    @
-
 }
